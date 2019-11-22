@@ -13,13 +13,8 @@ namespace tr1cpp
 			TR1();
 			~TR1();
 
-			Segment<5> base;
-			Segment<1> torso;
-			Segment<2> head;
-			Segment<8> armRight;
-			Segment<8> armLeft;
-
-			Joint getJoint(std::string jointName);
+            Segment<2> armRight;
+            Joint getJoint(std::string jointName);
 			void setJoint(tr1cpp::Joint joint);
 	};
 }

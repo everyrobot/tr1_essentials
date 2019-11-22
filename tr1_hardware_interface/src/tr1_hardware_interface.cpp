@@ -122,19 +122,20 @@ namespace tr1_hardware_interface
 		_logInfo += "Joint State:\n";
 		for (int i = 0; i < num_joints_; i++)
 		{
-			tr1cpp::Joint joint = tr1.getJoint(joint_names_[i]);
+            tr1cpp::Joint joint = tr1.getJoint(joint_names_[i]);
 
-			if (joint.getActuatorType() == ACTUATOR_TYPE_MOTOR)
-			{
-				joint_position_[i] = joint.readAngle();
+            //if (joint.getActuatorType() == ACTUATOR_TYPE_MOTOR)
+            //{
+            joint_position_[i] = joint.readAngle();
+            //motor_pos_read(current_pos, five_ms);
 
-				std::ostringstream jointPositionStr;
-				jointPositionStr << joint_position_[i];
-				_logInfo += "  " + joint.name + ": " + jointPositionStr.str() + "\n";
-			}
+            std::ostringstream jointPositionStr;
+            jointPositionStr << joint_position_[i];
+            _logInfo += "  " + joint.name + ": " + jointPositionStr.str() + "\n";
+            //}
 
-			tr1.setJoint(joint);
-		}
+            tr1.setJoint(joint);
+        }
 	}
 
 	void TR1HardwareInterface::write(ros::Duration elapsed_time)
@@ -151,15 +152,15 @@ namespace tr1_hardware_interface
 			double effort = joint_effort_command_[i];
 			uint8_t duration = 30;
 
-			if (joint.getActuatorType() == 1) { // servo
-				double previousEffort = joint.getPreviousEffort();
-				effort += previousEffort;
-			}
-			
-			joint.actuate(effort, duration);
+            //if (joint.getActuatorType() == 1) { // servo
+            //	double previousEffort = joint.getPreviousEffort();
+            //	effort += previousEffort;
+            //}
 
-			std::ostringstream jointEffortStr;
-			jointEffortStr << joint_effort_command_[i];
+            joint.actuate(effort, duration);
+
+            std::ostringstream jointEffortStr;
+            jointEffortStr << joint_effort_command_[i];
 			_logInfo += "  " + joint.name + ": " + jointEffortStr.str() + "\n";
 		}
 	}

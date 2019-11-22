@@ -24,12 +24,6 @@
 			/tr1/controller/state
 			/tr1/controller/position/JointLeftShoulderPan
 			/tr1/controller/position/JointLeftShoulderTilt
-			/tr1/controller/position/JointLeftUpperArmRoll
-			/tr1/controller/position/JointLeftElbowFlex
-			/tr1/controller/position/JointLeftForearmRoll
-			/tr1/controller/position/JointLeftWristFlex
-			/tr1/controller/position/JointLeftWristRoll
-			/tr1/controller/effort/JointLeftGripper
 		"/>
 
 </launch>
