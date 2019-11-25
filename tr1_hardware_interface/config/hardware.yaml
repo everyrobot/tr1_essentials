@@ -1,5 +1,5 @@
 tr1:
   hardware_interface:
-     loop_hz: 5 # hz
+     loop_hz: 100 # hz
      joints:
        - JointRightShoulderPan
