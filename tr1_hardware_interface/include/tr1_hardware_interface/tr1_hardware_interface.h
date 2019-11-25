@@ -15,7 +15,6 @@
 #include <tr1cpp/arm.h>
 #include <tr1cpp/joint.h>
 #include <tr1_hardware_interface/tr1_hardware.h>
-
 using namespace hardware_interface;
 using joint_limits_interface::JointLimits;
 using joint_limits_interface::SoftJointLimits;

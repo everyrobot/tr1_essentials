@@ -1,7 +1,5 @@
 tr1:
   joint_offsets:
     JointRightShoulderPan: 0.0
-    JointRightShoulderTilt: 0.0 
   joint_read_ratio:
     JointRightShoulderPan: 1.0
-    JointRightShoulderTilt: 1.0

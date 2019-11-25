@@ -7,9 +7,9 @@ Serial::Serial(ros::NodeHandle &nh,
                float desired_pos)
     : nh_(nh)
 {
-    write_sub = nh_.subscribe("write_", 1000, &Serial::write_callback, this);
-    read_pub = nh_.advertise<std_msgs::String>("read", 1000);
-    write_pub_str = nh_.advertise<std_msgs::String>("write_", 1000);
+    //write_sub = nh_.subscribe("write_", 1000, &Serial::write_callback, this);
+    //read_pub = nh_.advertise<std_msgs::String>("read", 1000);
+    //write_pub_str = nh_.advertise<std_msgs::String>("write_", 1000);
     //ros_loop(source_id, node_id, current_pos, desired_pos);
 }
 
@@ -79,7 +79,7 @@ std::string Serial::get_pos_cmd(uint16_t source_id, uint16_t node_id)
     cmd_get_pos_len = msg__get_length(&cmd_get_pos);
     byte_array_get_pos = msg__to_byte_array(&cmd_get_pos);
     std::string str_hex_get_pos = hexStr((unsigned char *) byte_array_get_pos, cmd_get_pos_len);
-    //ROS_INFO_STREAM("hexstring write " << str_hex_get_pos);
+    ROS_INFO_STREAM("hexstring write " << str_hex_get_pos);
     //std::ios_base::sync_with_stdio(false);
     // std::cout << "  hexstring write " << str_hex_get_pos << '\n';
     std::string str_byte_get_pos(byte_array_get_pos, cmd_get_pos_len);
@@ -186,12 +186,17 @@ bool Serial::set_pos_resp()
 
 void Serial::motor_pos_read(float &pos, double elapsed_time)
 {
+    ROS_INFO("Serial::motor_pos_read");
+
     //std::cout << " current time is : " << begin_time << std::endl;
     //ros::Time begin_time;
-    while (!set_pos_resp()) {
+    while (!get_pos_resp(pos)) {
         //while (1) {
         //begin_time = ros::Time::now();
-        if (ser.available()) {
+        //ROS_INFO("read serial starts");
+        //std::cout << ser.available() << '\n';
+        if (ser.available()) { //
+            ROS_INFO("serial reading");
             serial_read();
             //serial.set_pos_resp();
         }
@@ -206,6 +211,7 @@ void Serial::motor_pos_read(float &pos, double elapsed_time)
     // std::cout << " Short read elapsed_time is : " << (ros::Time::now() - begin_time) * 1000
     //           << " msec" << '\n';
     // return true;
+    ROS_INFO("motor_pos_read ends");
 }
 void Serial::motor_pos_write(std::string cmd)
 {

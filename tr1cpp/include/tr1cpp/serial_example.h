@@ -24,6 +24,7 @@ class Serial
 
 {
 public:
+    serial::Serial ser;
     Serial(ros::NodeHandle &nh,
            uint16_t source_id,
            uint16_t node_id,
@@ -55,8 +56,6 @@ protected:
     std::string data, serial_read_hexstr, byte;
     uint8_t *serial_read_char_array;
     uint16_t msg_ping_len, cmd_get_pos_len, cmd_set_pos_len;
-
-    serial::Serial ser;
     //char *data;
     uint16_t flags;
     volatile unsigned char _RX_SCI_buf[1024]; // buffer RX

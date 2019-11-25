@@ -3,7 +3,6 @@
 
 #include <sstream>
 #include <tr1cpp/segment.h>
-
 namespace tr1cpp
 {
 	class TR1
@@ -13,7 +12,7 @@ namespace tr1cpp
 			TR1();
 			~TR1();
 
-            Segment<2> armRight;
+            Segment<1> armRight;
             Joint getJoint(std::string jointName);
 			void setJoint(tr1cpp::Joint joint);
 	};

@@ -5,15 +5,13 @@
 namespace tr1cpp {
 TR1::TR1()
 {
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 1; i++) {
         armRight.joints[i].setMotorId(i + 1);
     }
 
     //armRight
     armRight.joints[0].name = "JointRightShoulderPan";
     armRight.joints[0].setMotorId(1);
-    armRight.joints[1].name = "JointRightShoulderTilt";
-    armRight.joints[1].setMotorId(2);
 }
 
 TR1::~TR1() {}

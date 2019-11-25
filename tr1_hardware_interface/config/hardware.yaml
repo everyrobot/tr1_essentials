@@ -3,4 +3,3 @@ tr1:
      loop_hz: 5 # hz
      joints:
        - JointRightShoulderPan
-       - JointRightShoulderTilt

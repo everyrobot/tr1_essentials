@@ -1,5 +1,4 @@
 #include <tr1_hardware_interface/tr1_hardware_interface.h>
-
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "tr1_hardware_interface");
@@ -12,7 +11,8 @@ int main(int argc, char** argv)
 
   tr1_hardware_interface::TR1HardwareInterface tr1(nh);
 
-  ros::spin();
+  //ros::spin();
+  ros::waitForShutdown();
 
   return 0;
 }

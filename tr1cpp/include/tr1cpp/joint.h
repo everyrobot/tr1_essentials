@@ -14,7 +14,7 @@
 #define ACTUATOR_TYPE_NONE -1
 #define ACTUATOR_TYPE_MOTOR 0
 #define ACTUATOR_TYPE_SERVO 1
-
+//extern serial::Serial ser;
 namespace tr1cpp {
 class Joint
 {
@@ -33,8 +33,13 @@ private:
     double _previousAngles[_filterPrevious];
     //void _prepareI2CWrite(uint8_t result[4], double effort);
     //void _prepareI2CRead(uint8_t result[4]);
-    SerialPort *_serialPort;
+    //SerialPort *_serialPort;
     Serial *_serial;
+    //Serial _serial(ros::NodeHandle nh,
+    //               uint16_t source_id,
+    //               uint16_t node_id,
+    //               float current_pos,
+    //               float desired_pos = 0);
 
 public:
     std::string name;
