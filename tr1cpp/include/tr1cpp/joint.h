@@ -35,14 +35,21 @@ private:
     //void _prepareI2CRead(uint8_t result[4]);
     //SerialPort *_serialPort;
     Serial *_serial;
+
+public:
+    std::string name;
+    uint16_t source_id = 1;
+    uint16_t node_id = 100;
+    float desired_pos = -100.0, current_pos;
+    ros::NodeHandle nh;
+    //Serial _serial(nh, source_id, node_id, current_pos, desired_pos = 0);
+
+    //Serial _serial(nh, source_id, node_id, current_pos, desired_pos = 0);
     //Serial _serial(ros::NodeHandle nh,
     //               uint16_t source_id,
     //               uint16_t node_id,
     //               float current_pos,
     //               float desired_pos = 0);
-
-public:
-    std::string name;
     Joint();
     Joint(uint8_t motorId);
     ~Joint();

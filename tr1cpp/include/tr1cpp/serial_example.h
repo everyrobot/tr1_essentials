@@ -24,7 +24,7 @@ class Serial
 
 {
 public:
-    serial::Serial ser;
+    //serial::Serial ser;
     Serial(ros::NodeHandle &nh,
            uint16_t source_id,
            uint16_t node_id,
@@ -67,6 +67,9 @@ protected:
     float current_position;
     //ros::Time start_time;
     clock_t start, end;
+
+private:
+    serial::Serial ser;
 };
 
 #endif

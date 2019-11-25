@@ -10,14 +10,13 @@
 namespace tr1cpp {
 Joint::Joint()
 {
-    //char serialName[13] = "/dev/ttyACM0";
-    //this->_serialPort = new SerialPort(serialName);
+    std::string name;
     uint16_t source_id = 1;
     uint16_t node_id = 100;
-    float desired_pos, current_pos;
-    desired_pos = -100.0;
+    float current_pos, desired_pos = -100.0;
     ros::NodeHandle nh;
     this->_serial = new Serial(nh, source_id, node_id, current_pos, desired_pos = 0);
+    this->_serial->init();
 }
 
 Joint::Joint(uint8_t motorId)
@@ -94,6 +93,7 @@ double Joint::readAngle()
     float current_pos;
     double five_ms = .005;
     ROS_INFO("TR1HardwareInterface::Joint::readAngle");
+    //this->_serial->motor_pos_read(current_pos, five_ms);
     this->_serial->motor_pos_read(current_pos, five_ms);
     ROS_INFO("readAngle");
     std::cout << current_pos << '\n';
@@ -189,6 +189,7 @@ void Joint::actuate(double effort, uint8_t duration = 30)
     uint16_t source_id = 1;
     uint16_t node_id = 100;
     //*****///motor_pos_write(set_pos_cmd(source_id, node_id, 500.0));
+    //this->_serial->motor_pos_write(this->_serial->set_pos_cmd(source_id, node_id, (float) effort));
     this->_serial->motor_pos_write(this->_serial->set_pos_cmd(source_id, node_id, (float) effort));
     //    if (!success) {
     //        ROS_WARN("Could not write to serial port");

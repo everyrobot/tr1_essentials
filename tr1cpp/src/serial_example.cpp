@@ -194,7 +194,7 @@ void Serial::motor_pos_read(float &pos, double elapsed_time)
         //while (1) {
         //begin_time = ros::Time::now();
         //ROS_INFO("read serial starts");
-        //std::cout << ser.available() << '\n';
+        std::cout << ser.available() << '\n';
         if (ser.available()) { //
             ROS_INFO("serial reading");
             serial_read();
