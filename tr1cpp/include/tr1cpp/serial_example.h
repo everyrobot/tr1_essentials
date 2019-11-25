@@ -38,11 +38,12 @@ public:
     std::string get_pos_cmd(uint16_t source_id, uint16_t node_id);
     std::string set_pos_cmd(uint16_t source_id, uint16_t node_id, float position);
     void serial_read();
-    void serial_write(std::string serial_write_ros);
+    //void serial_write(std::string serial_write_ros);
     bool get_pos_resp(float &pos);
     bool set_pos_resp();
-    void motor_pos_read(float &pos, double elapsed_time);
-    void motor_pos_write(std::string cmd);
+    void get_pos_read(float &pos, double elapsed_time);
+    void set_pos_read(double elapsed_time);
+    void serial_write(std::string cmd);
     void ros_loop(uint16_t source_id, uint16_t node_id, float &current_pos, float desired_pos = 0);
 
 protected:

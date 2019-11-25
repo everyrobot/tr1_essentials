@@ -79,7 +79,7 @@ std::string Serial::get_pos_cmd(uint16_t source_id, uint16_t node_id)
     cmd_get_pos_len = msg__get_length(&cmd_get_pos);
     byte_array_get_pos = msg__to_byte_array(&cmd_get_pos);
     std::string str_hex_get_pos = hexStr((unsigned char *) byte_array_get_pos, cmd_get_pos_len);
-    ROS_INFO_STREAM("hexstring write " << str_hex_get_pos);
+    //ROS_INFO_STREAM("hexstring write " << str_hex_get_pos);
     //std::ios_base::sync_with_stdio(false);
     // std::cout << "  hexstring write " << str_hex_get_pos << '\n';
     std::string str_byte_get_pos(byte_array_get_pos, cmd_get_pos_len);
@@ -92,8 +92,8 @@ std::string Serial::set_pos_cmd(uint16_t source_id, uint16_t node_id, float posi
     cmd_set_pos_len = msg__get_length(&cmd_set_pos);
     byte_array_set_pos = msg__to_byte_array(&cmd_set_pos);
     std::string str_hex_set_pos = hexStr((unsigned char *) byte_array_set_pos, cmd_set_pos_len);
-    std::cout << "  hexstring write " << str_hex_set_pos << '\n';
-    std::cout << "  hexstring write size " << cmd_set_pos_len << '\n';
+    //std::cout << "  hexstring write " << str_hex_set_pos << '\n';
+    //std::cout << "  hexstring write size " << cmd_set_pos_len << '\n';
     //ROS_INFO_STREAM("hexstring write " << str_hex_set_pos);
     std::string str_byte_set_pos(byte_array_set_pos, cmd_set_pos_len);
     //str_ros_set_pos.data = str_byte_set_pos;
@@ -109,8 +109,8 @@ void Serial::serial_read()
     //  (Display) Show hex strings of TI Response Message
     //ROS_INFO_STREAM("hexstring read: " << serial_read_hexstr);
     //std::ios_base::sync_with_stdio(false);
-    std::cout << "hexstring read: " << serial_read_hexstr << '\n';
-    std::cout << "hexstring read size: " << data.length() << '\n';
+    //std::cout << "hexstring read: " << serial_read_hexstr << '\n';
+    //std::cout << "hexstring read size: " << data.length() << '\n';
     //ROS_INFO("Reading from serial port: size %d", data.length());
     // Converting string to char array(uint8_t array)
     serial_read_char_array = (unsigned char *) data.c_str();
@@ -128,14 +128,14 @@ void Serial::serial_read()
                               serial_read[i]);
     }
 }
-void Serial::serial_write(std::string serial_write_ros)
-{
-    // Writing to Serial by ROS publish
-    //write_pub_str.publish(serial_write_ros);
-    //start_time = ros::Time::now();
-    //start = clock();
-    //ser.write(serial_write_ros);
-}
+//void Serial::serial_write(std::string serial_write_ros)
+//{
+//    // Writing to Serial by ROS publish
+//    //write_pub_str.publish(serial_write_ros);
+//    //start_time = ros::Time::now();
+//    //start = clock();
+//    //ser.write(serial_write_ros);
+//}
 
 bool Serial::get_pos_resp(float &pos)
 {
@@ -155,7 +155,7 @@ bool Serial::get_pos_resp(float &pos)
             && command__check_response_msg(&gMsgResponse) == 0) {
             current_position = msg__get_float_from_body(&gMsgResponse, 0);
             //std::cout << "  current position " << current_position << '\n';
-            ROS_INFO("current position is :%f ", current_position);
+            //ROS_INFO("current position is :%f ", current_position);
             pos = current_position;
             return true;
 
@@ -175,7 +175,7 @@ bool Serial::set_pos_resp()
                                &gMsgResponse)) {
         if (command__check_msg_flags(&gMsgResponse) == 0
             && command__check_response_msg(&gMsgResponse) == 0) {
-            std::cout << "position is set " << '\n';
+            ROS_INFO("position is set ");
             return true;
         } else {
             return false;
@@ -184,9 +184,9 @@ bool Serial::set_pos_resp()
     }
 }
 
-void Serial::motor_pos_read(float &pos, double elapsed_time)
+void Serial::get_pos_read(float &pos, double elapsed_time)
 {
-    ROS_INFO("Serial::motor_pos_read");
+    // ROS_INFO("Serial::get_pos_read starts");
 
     //std::cout << " current time is : " << begin_time << std::endl;
     //ros::Time begin_time;
@@ -196,7 +196,7 @@ void Serial::motor_pos_read(float &pos, double elapsed_time)
         //ROS_INFO("read serial starts");
         //std::cout << ser.available() << '\n';
         if (ser.available()) { //
-            ROS_INFO("serial reading");
+            //ROS_INFO("serial reading");
             serial_read();
             //serial.set_pos_resp();
         }
@@ -211,9 +211,39 @@ void Serial::motor_pos_read(float &pos, double elapsed_time)
     // std::cout << " Short read elapsed_time is : " << (ros::Time::now() - begin_time) * 1000
     //           << " msec" << '\n';
     // return true;
-    ROS_INFO("motor_pos_read ends");
+    // ROS_INFO("Serial::get_pos_read ends");
 }
-void Serial::motor_pos_write(std::string cmd)
+
+void Serial::set_pos_read(double elapsed_time)
+{
+    //ROS_INFO("Serial::set_pos_read starts");
+
+    //std::cout << " current time is : " << begin_time << std::endl;
+    //ros::Time begin_time;
+    while (!set_pos_resp()) {
+        //while (1) {
+        //begin_time = ros::Time::now();
+        //ROS_INFO("read serial starts");
+        //std::cout << ser.available() << '\n';
+        if (ser.available()) { //
+            //ROS_INFO("serial reading");
+            serial_read();
+            //serial.set_pos_resp();
+        }
+        // if ((ros::Time::now() - begin_time) > elapsed_time) {
+        //     ios_base::sync_with_stdio(false);
+        //     std::cout << " Long read elapsed_time is : " << (ros::Time::now() - begin_time) * 1000
+        //               << " msec" << '\n';
+        //     return false;
+        // }
+    }
+    // ios_base::sync_with_stdio(false);
+    // std::cout << " Short read elapsed_time is : " << (ros::Time::now() - begin_time) * 1000
+    //           << " msec" << '\n';
+    // return true;
+    // ROS_INFO("Serial::set_pos_read ends");
+}
+void Serial::serial_write(std::string cmd)
 {
     start = clock();
     ser.write(cmd);
@@ -238,12 +268,17 @@ void Serial::ros_loop(uint16_t source_id, uint16_t node_id, float &current_pos, 
             //serial::motor_pos_read();
             //joint_pos.data[0].push_back(current_pos);
 
-            motor_pos_write(set_pos_cmd(source_id, node_id, 500.0));
+            serial_write(set_pos_cmd(source_id, node_id, 500.0));
             //motor_pos_write(get_pos_cmd(source_id, node_id));
             //motor_pos_read(current_pos, 0.005);
             double five_ms = .005;
             //bool response = motor_pos_read(current_pos, five_ms); //rad && sec
-            motor_pos_read(current_pos, five_ms);
+            set_pos_read(five_ms);
+            serial_write(get_pos_cmd(source_id, node_id));
+            //motor_pos_write(get_pos_cmd(source_id, node_id));
+            //motor_pos_read(current_pos, 0.005);
+            //bool response = motor_pos_read(current_pos, five_ms); //rad && sec
+            get_pos_read(current_pos, five_ms);
             //end = clock();
             //double elasped_time = ((double) (end - start)) / CLOCKS_PER_SEC;
             //std::ios_base::sync_with_stdio(false);

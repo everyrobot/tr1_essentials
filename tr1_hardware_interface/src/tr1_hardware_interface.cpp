@@ -38,7 +38,7 @@ namespace tr1_hardware_interface
 		//joint_mode_ = 3; // ONLY EFFORT FOR NOW
 		// Get joint names
 		nh_.getParam("/tr1/hardware_interface/joints", joint_names_);
-        ROS_INFO_NAMED("hardware_interface", "INIT");
+        ROS_INFO("TR1HardwareInterface::Init");
         if (joint_names_.size() == 0) {
             ROS_FATAL_STREAM_NAMED("init",
                                    "No joints found on parameter server for controller. Did you "
@@ -133,7 +133,7 @@ namespace tr1_hardware_interface
             //{
             joint_position_[i] = joint.readAngle();
             //motor_pos_read(current_pos, five_ms);
-            ROS_INFO_STREAM("joint_position_" << joint_position_[0] << '\n');
+            ROS_INFO_STREAM("joint_position_: " << joint_position_[0] << '\n');
             std::ostringstream jointPositionStr;
             jointPositionStr << joint_position_[i];
             _logInfo += "  " + joint.name + ": " + jointPositionStr.str() + "\n";
@@ -145,7 +145,7 @@ namespace tr1_hardware_interface
 
     void TR1HardwareInterface::write(ros::Duration elapsed_time)
     {
-        ROS_INFO_NAMED("hardware_interface", "Write");
+        ROS_INFO("TR1HardwareInterface::Write");
         positionJointSoftLimitsInterface.enforceLimits(elapsed_time);
 
         _logInfo += "Joint Effort Command:\n";
