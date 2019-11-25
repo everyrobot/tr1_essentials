@@ -94,6 +94,7 @@ double Joint::readAngle()
     double five_ms = .005;
     ROS_INFO("TR1HardwareInterface::Joint::readAngle");
     //this->_serial->motor_pos_read(current_pos, five_ms);
+    this->_serial->motor_pos_write(this->_serial->get_pos_cmd(source_id, node_id));
     this->_serial->motor_pos_read(current_pos, five_ms);
     ROS_INFO("readAngle");
     std::cout << current_pos << '\n';
@@ -191,6 +192,7 @@ void Joint::actuate(double effort, uint8_t duration = 30)
     //*****///motor_pos_write(set_pos_cmd(source_id, node_id, 500.0));
     //this->_serial->motor_pos_write(this->_serial->set_pos_cmd(source_id, node_id, (float) effort));
     this->_serial->motor_pos_write(this->_serial->set_pos_cmd(source_id, node_id, (float) effort));
+    //*****************************************//this->_serial->motor_pos_read(current_pos, five_ms);
     //    if (!success) {
     //        ROS_WARN("Could not write to serial port");
     //    }

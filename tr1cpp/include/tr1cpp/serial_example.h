@@ -50,6 +50,7 @@ protected:
     ros::Subscriber write_sub;
     ros::Publisher read_pub;
     ros::Publisher write_pub_str;
+    serial::Serial ser;
 
     char *byte_array_ping, *byte_array_get_pos, *byte_array_set_pos; //= "";
     std_msgs::String str_ros_ping, str_ros_get_pos, str_ros_set_pos;
@@ -67,9 +68,6 @@ protected:
     float current_position;
     //ros::Time start_time;
     clock_t start, end;
-
-private:
-    serial::Serial ser;
 };
 
 #endif

@@ -22,7 +22,7 @@ bool Serial::init()
         serial::Timeout to = serial::Timeout::simpleTimeout(10); //1000 //10
         ser.setTimeout(to);
         ser.open();
-        ser.flush();
+        //ser.flush();
     } catch (serial::IOException &e) {
         ROS_ERROR_STREAM("Unable to open port ");
         return false;
@@ -194,7 +194,7 @@ void Serial::motor_pos_read(float &pos, double elapsed_time)
         //while (1) {
         //begin_time = ros::Time::now();
         //ROS_INFO("read serial starts");
-        std::cout << ser.available() << '\n';
+        //std::cout << ser.available() << '\n';
         if (ser.available()) { //
             ROS_INFO("serial reading");
             serial_read();
