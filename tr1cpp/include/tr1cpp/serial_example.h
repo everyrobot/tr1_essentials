@@ -41,8 +41,8 @@ public:
     //void serial_write(std::string serial_write_ros);
     bool get_pos_resp(float &pos);
     bool set_pos_resp();
-    void get_pos_read(float &pos, double elapsed_time);
-    void set_pos_read(double elapsed_time);
+    void get_pos_resp_check(float &pos, double elapsed_time);
+    void set_pos_resp_check(double elapsed_time);
     void serial_write(std::string cmd);
     void ros_loop(uint16_t source_id, uint16_t node_id, float &current_pos, float desired_pos = 0);
 

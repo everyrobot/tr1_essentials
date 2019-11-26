@@ -17,7 +17,7 @@ Serial::~Serial() {}
 bool Serial::init()
 {
     try {
-        ser.setPort("/dev/ttyUSB0");
+        ser.setPort("/dev/ttyUSB1");
         ser.setBaudrate(115200);
         serial::Timeout to = serial::Timeout::simpleTimeout(10); //1000 //10
         ser.setTimeout(to);
@@ -184,7 +184,7 @@ bool Serial::set_pos_resp()
     }
 }
 
-void Serial::get_pos_read(float &pos, double elapsed_time)
+void Serial::get_pos_resp_check(float &pos, double elapsed_time)
 {
     // ROS_INFO("Serial::get_pos_read starts");
 
@@ -214,7 +214,7 @@ void Serial::get_pos_read(float &pos, double elapsed_time)
     // ROS_INFO("Serial::get_pos_read ends");
 }
 
-void Serial::set_pos_read(double elapsed_time)
+void Serial::set_pos_resp_check(double elapsed_time)
 {
     //ROS_INFO("Serial::set_pos_read starts");
 
@@ -273,12 +273,12 @@ void Serial::ros_loop(uint16_t source_id, uint16_t node_id, float &current_pos, 
             //motor_pos_read(current_pos, 0.005);
             double five_ms = .005;
             //bool response = motor_pos_read(current_pos, five_ms); //rad && sec
-            set_pos_read(five_ms);
+            set_pos_resp_check(five_ms);
             serial_write(get_pos_cmd(source_id, node_id));
             //motor_pos_write(get_pos_cmd(source_id, node_id));
             //motor_pos_read(current_pos, 0.005);
             //bool response = motor_pos_read(current_pos, five_ms); //rad && sec
-            get_pos_read(current_pos, five_ms);
+            get_pos_resp_check(current_pos, five_ms);
             //end = clock();
             //double elasped_time = ((double) (end - start)) / CLOCKS_PER_SEC;
             //std::ios_base::sync_with_stdio(false);
