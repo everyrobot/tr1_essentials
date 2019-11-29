@@ -21,7 +21,7 @@ namespace tr1_hardware_interface
         init();
         controller_manager_.reset(new controller_manager::ControllerManager(this, nh_));
 
-        nh_.param("/tr1/hardware_interface/loop_hz", loop_hz_, 10.0);
+        nh_.param("/tr1/hardware_interface/loop_hz", loop_hz_, 100.0);
         ROS_DEBUG_STREAM_NAMED("constructor", "Using loop freqency of " << loop_hz_ << " hz");
         ros::Duration update_freq = ros::Duration(1.0 / loop_hz_);
         non_realtime_loop_ = nh_.createTimer(update_freq, &TR1HardwareInterface::update, this);
@@ -155,6 +155,7 @@ namespace tr1_hardware_interface
             //if (joint_effort_command_[i] < -1) joint_effort_command_[i] = -1;
 
             double effort = joint_effort_command_[i];
+            //double effort = -120.0;
             uint8_t duration = 30;
 
             //if (joint.getActuatorType() == 1) { // servo
