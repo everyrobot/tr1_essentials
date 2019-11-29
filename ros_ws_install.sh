@@ -14,8 +14,8 @@ cd ..
 git clone https://github.com/everyrobot/tr1_essentials.git
 cd tr1_essentials/
 git fetch
-git checkout -b ros
-git pull origin ros
+git checkout -b linux_serial
+git pull origin linux_serial
 cd ../.. 
 catkin_make
 source devel/setup.bash
