@@ -11,9 +11,9 @@ namespace tr1cpp
 
 		public:
 			Arm();
-			~Arm();
-			Joint joints[8];
-	};
+            ~Arm();
+            Joint joints[1];
+    };
 }
 
 #endif

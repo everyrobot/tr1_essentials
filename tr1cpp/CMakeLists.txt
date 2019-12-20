@@ -5,13 +5,19 @@ add_compile_options(-std=c++11)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  std_msgs
+  serial
+  er_ti_f28069m_drv8305
 )
 
 catkin_package(
   INCLUDE_DIRS 
     include
   CATKIN_DEPENDS
+    serial
     roscpp
+    std_msgs
+    er_ti_f28069m_drv8305
   LIBRARIES
 		tr1cpp
 )
@@ -32,10 +38,12 @@ add_library(tr1cpp
 	include/${PROJECT_NAME}/tr1.h
 	include/${PROJECT_NAME}/segment.h
 	include/${PROJECT_NAME}/joint.h
+        include/${PROJECT_NAME}/serial_example.h
 	src/i2c.cpp
 	src/serial.cpp
 	src/tr1.cpp
 	src/arm.cpp
 	src/joint.cpp
+        src/serial_example.cpp
 )
 target_link_libraries(tr1cpp ${catkin_LIBRARIES})
