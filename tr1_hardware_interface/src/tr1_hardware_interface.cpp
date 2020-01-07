@@ -54,6 +54,9 @@ namespace tr1_hardware_interface
         joint_velocity_command_.resize(num_joints_);
         joint_effort_command_.resize(num_joints_);
 
+        pcb_no_of_channels_ = 9;
+
+        robot_tactile1_median_.resize(pcb_no_of_channels_);
         // Initialize controller
         for (int i = 0; i < num_joints_; ++i) {
             tr1cpp::Joint joint = tr1.getJoint(joint_names_[i]);
@@ -132,12 +135,17 @@ namespace tr1_hardware_interface
 
             //{
             joint_position_[i] = joint.readAngle();
+            //robot_tactile1_median_ = joint.readTactile();
+            //robot_tactile1_median_.assign((joint.readTactile()).begin(),(joint.readTactile()).end());
             //motor_pos_read(current_pos, five_ms);
             ROS_INFO_STREAM("joint_position_: " << joint_position_[0] << '\n');
             std::ostringstream jointPositionStr;
             jointPositionStr << joint_position_[i];
             _logInfo += "  " + joint.name + ": " + jointPositionStr.str() + "\n";
             //}
+
+            //for (int i = 0; i < (int) robot_tactile1_median_.size(); i++)
+            //ROS_INFO("robot_tactile1_median_(%d) is :%d", i, robot_tactile1_median_.at(i));
 
             tr1.setJoint(joint);
         }

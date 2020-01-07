@@ -71,6 +71,8 @@ double Joint::_filterAngle(double angle)
 std::vector<uint16_t> Joint::readTactile()
 {
     std::vector<uint16_t> serial_read_tactile;
+    int NO_OF_CHANNELS = 9;
+    serial_read_tactile.resize(NO_OF_CHANNELS);
     this->_serial->serial_write(this->_serial->tactile_pcb1_get_median_cmd(source_id, node_id));
     this->_serial->serial_read(&serial_read_tactile);
     return serial_read_tactile;

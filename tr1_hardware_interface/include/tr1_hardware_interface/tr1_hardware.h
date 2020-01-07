@@ -51,13 +51,15 @@ namespace tr1_hardware_interface
 			std::vector<double>                          joint_velocity_;
 			std::vector<double>                          joint_effort_;
 			std::vector<double>                          joint_position_command_;
-			std::vector<double>                          joint_velocity_command_;
-			std::vector<double>                          joint_effort_command_;
-			std::vector<double>                          joint_lower_limits_;
-			std::vector<double>                          joint_upper_limits_;
-			std::vector<double>                          joint_effort_limits_;
+            std::vector<double> joint_velocity_command_;
+            std::vector<double> joint_effort_command_;
+            std::vector<double> joint_lower_limits_;
+            std::vector<double> joint_upper_limits_;
+            std::vector<double> joint_effort_limits_;
+            int pcb_no_of_channels_;
+            std::vector<uint16_t> robot_tactile1_median_;
 
-	}; // class
+    }; // class
 
 } // namespace
 
