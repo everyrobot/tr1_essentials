@@ -128,14 +128,14 @@ namespace tr1_hardware_interface
     {
         ROS_INFO("TR1HardwareInterface::Read");
         _logInfo += "Joint State:\n";
+
         for (int i = 0; i < num_joints_; i++) {
             tr1cpp::Joint joint = tr1.getJoint(joint_names_[i]);
 
             //if (joint.getActuatorType() == ACTUATOR_TYPE_MOTOR)
-
             //{
             joint_position_[i] = joint.readAngle();
-            //robot_tactile1_median_ = joint.readTactile();
+            robot_tactile1_median_ = joint.readTactile();
             //robot_tactile1_median_.assign((joint.readTactile()).begin(),(joint.readTactile()).end());
             //motor_pos_read(current_pos, five_ms);
             ROS_INFO_STREAM("joint_position_: " << joint_position_[0] << '\n');
@@ -144,8 +144,8 @@ namespace tr1_hardware_interface
             _logInfo += "  " + joint.name + ": " + jointPositionStr.str() + "\n";
             //}
 
-            //for (int i = 0; i < (int) robot_tactile1_median_.size(); i++)
-            //ROS_INFO("robot_tactile1_median_(%d) is :%d", i, robot_tactile1_median_.at(i));
+            for (int i = 0; i < (int) robot_tactile1_median_.size(); i++)
+                ROS_INFO("robot_tactile1_median_(%d) is :%d", i, robot_tactile1_median_.at(i));
 
             tr1.setJoint(joint);
         }

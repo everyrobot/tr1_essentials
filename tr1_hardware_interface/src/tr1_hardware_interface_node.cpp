@@ -12,7 +12,7 @@ int main(int argc, char** argv)
   tr1_hardware_interface::TR1HardwareInterface tr1(nh);
 
   //ros::spin();
-  //ros::waitForShutdown();
+  ros::waitForShutdown();
 
   return 0;
 }
